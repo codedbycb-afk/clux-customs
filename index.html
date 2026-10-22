@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>C-Lux Customs | Window Tint, Wraps & Detailing in Cleveland</title>
+<meta name="description" content="Cleveland window tint, chrome delete, caliper painting, headlight tint, vinyl wrap accents and detailing. Book online in about a minute.">
+<meta name="theme-color" content="#0a0a0b">
+<meta property="og:title" content="C-Lux Customs | Cleveland Tint, Wraps & Detailing">
+<meta property="og:description" content="One stop for the whole look. Book online in about a minute.">
+<meta property="og:image" content="img/corvette-5.jpg">
+<link rel="icon" href="img/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="demo/demo.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="#top" class="logo" aria-label="C-Lux Customs home"><span class="logo-mark">C<i>/</i>LUX</span><span class="logo-sub">Customs</span></a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="#services">Services</a><a href="#shades">Shades</a><a href="#work">Work</a><a href="#visit">Visit</a>
+  </nav>
+  <a href="#book" class="btn btn-red btn-sm magnetic">Book now</a>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="streaks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="hero-copy">
+      <p class="eyebrow reveal"><span class="dot"></span><span data-biz="city">Cleveland, OH</span> · Tint · Wrap · Detail</p>
+      <h1 class="hero-title">
+        <span class="line"><span class="sweep">Dark glass.</span></span>
+        <span class="line"><span class="sweep">Clean lines.</span></span>
+      </h1>
+      <p class="hero-sub reveal">One shop for the whole look. Window tint, chrome delete, calipers, wraps and detailing, done right with real attention to detail.</p>
+      <div class="hero-cta reveal">
+        <a href="#book" class="btn btn-red btn-lg magnetic">Book your spot <span class="arrow">→</span></a>
+        <a href="sms:+12166120141" class="btn btn-ghost btn-lg" data-biz-href="sms">Text <span data-biz="phone">(216) 612-0141</span></a>
+      </div>
+      <ul class="proof reveal">
+        <li><b>Same-day</b> appointments</li>
+        <li><b>Carbon, ceramic</b> &amp; hybrid film</li>
+        <li><b>$<span data-biz="deposit">25</span></b> holds your spot</li>
+      </ul>
+    </div>
+    <div class="hero-stack" id="heroStack" aria-hidden="true">
+      <figure class="card c1 film"><img src="img/corvette-5.jpg?v=2" alt=""><figcaption>5% · '95 Corvette</figcaption></figure>
+      <figure class="card c2 film"><img src="img/challenger-20.jpg?v=2" alt=""><figcaption>20% · Challenger</figcaption></figure>
+      <figure class="card c3 film"><img src="img/telluride.jpg?v=2" alt=""><figcaption>Kia Telluride</figcaption></figure>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Window tint</span><span>Ceramic film</span><span>Chrome delete</span><span>Caliper paint</span><span>Headlight tint</span><span>Vinyl wrap</span><span>Detailing</span><span>Home &amp; office tint</span>
+      <span>Window tint</span><span>Ceramic film</span><span>Chrome delete</span><span>Caliper paint</span><span>Headlight tint</span><span>Vinyl wrap</span><span>Detailing</span><span>Home &amp; office tint</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="section-head reveal">
+      <p class="kicker">01 / Services</p>
+      <h2>Everything your car needs. <span class="red">One stop.</span></h2>
+    </div>
+    <div class="services" id="serviceGrid"><!-- filled from /api/config --></div>
+  </section>
+
+  <!-- SHADE PICKER -->
+  <section class="section shades" id="shades">
+    <div class="shades-inner">
+      <div class="shades-copy reveal">
+        <p class="kicker dark">02 / Shade picker</p>
+        <h2>Pick your shade.</h2>
+        <p class="lede">Slide to see how dark each film runs. Lower number means darker glass.</p>
+        <div class="shade-readout">
+          <div class="shade-num"><span id="shadeNum">20</span><small>%</small></div>
+          <div>
+            <p class="shade-name" id="shadeName">Dark</p>
+            <p class="shade-desc" id="shadeDesc">You see out, they don't see in.</p>
+          </div>
+        </div>
+        <p class="legal" id="shadeLegal"></p>
+      </div>
+      <div class="car-wrap reveal">
+        <svg class="car" id="car" viewBox="0 0 800 290" role="img" aria-label="Car with tinted windows preview">
+          <defs>
+            <linearGradient id="paint" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="var(--paint-hi)"/><stop offset=".55" stop-color="var(--paint)"/><stop offset="1" stop-color="var(--paint-lo)"/>
+            </linearGradient>
+            <linearGradient id="glare" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <clipPath id="glass"><path id="glassPath" d="M262 156 Q330 104 398 97 L452 97 L452 156 Z M466 97 L518 97 Q552 99 590 128 L600 156 L466 156 Z"/></clipPath>
+          </defs>
+          <ellipse cx="400" cy="272" rx="360" ry="12" fill="#000" opacity=".35"/>
+          <!-- interior you can see through light tint -->
+          <g clip-path="url(#glass)">
+            <rect x="250" y="90" width="360" height="70" fill="#d9dcdc"/>
+            <path d="M330 156 q0-34 22-40 q18-4 22 10 l6 30z M520 156 q0-30 18-36 q16-4 20 8 l6 28z" fill="#3a3c3e"/>
+            <circle cx="300" cy="150" r="20" fill="none" stroke="#3a3c3e" stroke-width="6"/>
+            <rect id="tint" x="250" y="90" width="360" height="70" fill="#030304" opacity=".8"/>
+            <rect class="glare" x="160" y="80" width="120" height="90" fill="url(#glare)" transform="skewX(-25)"/>
+          </g>
+          <path class="body" fill="url(#paint)" d="M60 236 L40 232 Q26 226 28 208 L34 190 Q40 178 62 174 L246 152 Q262 150 262 156 L600 156 Q606 150 620 150 L692 152 Q742 158 758 174 L764 202 Q766 226 748 234 L668 236 A60 60 0 0 0 552 236 L248 236 A60 60 0 0 0 132 236 Z
+            M250 156 Q324 94 398 87 L520 87 Q560 89 600 122 L610 156 L600 156 L590 128 Q552 99 518 97 L398 97 Q330 104 262 156 Z"/>
+          <path d="M452 97 L466 97 L466 156 L452 156 Z" fill="#0b0b0c"/>
+          <path d="M70 196 L240 168" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+          <path d="M280 192 L740 190" stroke="rgba(0,0,0,.35)" stroke-width="2"/>
+          <rect x="420" y="174" width="26" height="5" rx="2" fill="rgba(0,0,0,.45)"/>
+          <rect x="548" y="174" width="26" height="5" rx="2" fill="rgba(0,0,0,.45)"/>
+          <path d="M34 192 l26 -4 l-4 12 l-24 2z" fill="#f3f3ee" opacity=".9"/>
+          <path d="M752 176 l10 4 l2 16 l-14 -2z" fill="#e0151f"/>
+          <g class="wheel" transform="translate(190 236)"><circle r="50" fill="#0c0c0d"/><circle r="34" fill="#2a2b2d"/><circle r="34" fill="none" stroke="#6d7072" stroke-width="3"/><g class="spokes" stroke="#8b8e90" stroke-width="6" stroke-linecap="round"><line y1="-30" y2="30"/><line x1="-30" x2="30"/><line x1="-21" y1="-21" x2="21" y2="21"/><line x1="21" y1="-21" x2="-21" y2="21"/></g><rect class="caliper" x="-14" y="-30" width="28" height="12" rx="4" fill="#e0151f"/><circle r="7" fill="#111"/></g>
+          <g class="wheel" transform="translate(610 236)"><circle r="50" fill="#0c0c0d"/><circle r="34" fill="#2a2b2d"/><circle r="34" fill="none" stroke="#6d7072" stroke-width="3"/><g class="spokes" stroke="#8b8e90" stroke-width="6" stroke-linecap="round"><line y1="-30" y2="30"/><line x1="-30" x2="30"/><line x1="-21" y1="-21" x2="21" y2="21"/><line x1="21" y1="-21" x2="-21" y2="21"/></g><rect class="caliper" x="-14" y="-30" width="28" height="12" rx="4" fill="#e0151f"/><circle r="7" fill="#111"/></g>
+        </svg>
+        <div class="shade-controls">
+          <input type="range" id="shadeRange" min="0" max="5" step="1" value="3" aria-label="Tint shade">
+          <div class="shade-ticks" id="shadeTicks"></div>
+          <div class="paint-row">
+            <span>Paint</span>
+            <button class="swatch active" data-paint="red" style="--c:#c8121b" aria-label="Red"></button>
+            <button class="swatch" data-paint="black" style="--c:#151517" aria-label="Black"></button>
+            <button class="swatch" data-paint="nardo" style="--c:#8b8e8f" aria-label="Nardo Grey"></button>
+            <button class="swatch" data-paint="white" style="--c:#ecedeb" aria-label="White"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="films reveal">
+      <article><h3>Carbon</h3><p>Matte look that won't fade purple. Solid heat block.</p></article>
+      <article><h3>Ceramic</h3><p>Best heat rejection and the clearest view. Won't mess with your signal.</p></article>
+      <article><h3>Hybrid</h3><p>Carbon and ceramic blended. Strong heat block, middle price.</p></article>
+      <a href="#book" class="btn btn-black btn-lg magnetic" id="bookShade"><span>Book <span id="bookShadeNum">20</span>% tint</span> <span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="section" id="work">
+    <div class="section-head reveal">
+      <p class="kicker">03 / Recent work</p>
+      <h2>Fresh off the lot.</h2>
+    </div>
+    <div class="gallery">
+      <figure class="shot film tilt"><img src="img/corvette-5.jpg?v=2" alt="Red 1995 Corvette with 5% tint" loading="lazy"><figcaption><b>5%</b> on a '95 Corvette</figcaption></figure>
+      <figure class="shot film tilt"><img src="img/semi-20.jpg?v=2" alt="Red semi truck with 20% tint on the front windows" loading="lazy"><figcaption><b>20%</b> fronts on a semi</figcaption></figure>
+      <figure class="shot film tilt"><img src="img/challenger-20.jpg?v=2" alt="White Dodge Challenger with 20% tint" loading="lazy"><figcaption><b>20%</b> on a Challenger</figcaption></figure>
+      <figure class="shot film tilt"><img src="img/infiniti-20.jpg?v=2" alt="White Infiniti with 20% tint over existing tint" loading="lazy"><figcaption><b>20%</b> over existing tint</figcaption></figure>
+      <figure class="shot film tilt"><img src="img/telluride.jpg?v=2" alt="Black Kia Telluride with fresh window tint" loading="lazy"><figcaption>Kia Telluride, fresh tint</figcaption></figure>
+      <figure class="shot film tilt"><img src="img/15-all-around.jpg?v=2" alt="Dark grey SUV with 15% tint all around" loading="lazy"><figcaption><b>15%</b> all around</figcaption></figure>
+      <figure class="shot film tilt"><img src="img/corvette-hatch.jpg?v=2" alt="Corvette rear hatch glass being tinted" loading="lazy"><figcaption>That Corvette hatch, no bubbles</figcaption></figure>
+      <figure class="shot film tilt"><img src="img/frameless.jpg?v=2" alt="Frameless window being re-tinted" loading="lazy"><figcaption>Re-tinting a frameless window</figcaption></figure>
+    </div>
+    <p class="center reveal"><a class="btn btn-ghost" id="igLink" href="https://www.instagram.com/christintedme/" target="_blank" rel="noopener">More on Instagram <span data-biz="ig">@christintedme</span> ↗</a></p>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="section book" id="book">
+    <div class="section-head reveal">
+      <p class="kicker">04 / Book</p>
+      <h2>Book in about <span class="red">a minute.</span></h2>
+    </div>
+    <ol class="how reveal">
+      <li><b>1</b><span>Pick the work and a time</span></li>
+      <li><b>2</b><span>Send the $<span data-biz="deposit">25</span> deposit to lock it in</span></li>
+      <li><b>3</b><span>Pull up. We handle the rest.</span></li>
+    </ol>
+
+    <div class="wizard reveal" id="wizard">
+      <div class="wiz-main">
+        <div class="wiz-progress"><span id="wizBar"></span></div>
+        <p class="wiz-step" id="wizStep">Step 1 of 3</p>
+
+        <!-- step 1 -->
+        <div class="pane" data-pane="1">
+          <h3>What are we doing?</h3>
+          <p class="hint">Pick one or more.</p>
+          <div class="svc-picks" id="svcPicks"></div>
+          <div class="sub" id="tintOpts" hidden>
+            <label class="lbl">Shade <small>(lower = darker)</small></label>
+            <div class="chips" id="shadeChips"></div>
+            <label class="lbl">Film</label>
+            <div class="chips" id="filmChips"></div>
+          </div>
+          <div class="sub" id="vehicleOpts" hidden>
+            <label class="lbl" for="vehicle">Year, make and model</label>
+            <input id="vehicle" class="input" placeholder="2021 Dodge Challenger" autocomplete="off">
+          </div>
+          <div class="sub" id="propertyOpts" hidden>
+            <label class="lbl" for="propAddr">Property address <small>(free on-site estimate)</small></label>
+            <input id="propAddr" class="input" placeholder="123 Main St, Cleveland" autocomplete="street-address">
+          </div>
+        </div>
+
+        <!-- step 2 -->
+        <div class="pane" data-pane="2" hidden>
+          <h3>Pick a day.</h3>
+          <p class="hint" id="durHint"></p>
+          <div class="cal">
+            <div class="cal-head">
+              <button class="icon-btn" id="calPrev" aria-label="Previous month">‹</button>
+              <strong id="calTitle"></strong>
+              <button class="icon-btn" id="calNext" aria-label="Next month">›</button>
+            </div>
+            <div class="cal-dow"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+            <div class="cal-grid" id="calGrid"></div>
+          </div>
+          <div class="times" id="times"></div>
+        </div>
+
+        <!-- step 3 -->
+        <div class="pane" data-pane="3" hidden>
+          <h3>Who's pulling up?</h3>
+          <form id="infoForm" novalidate>
+            <div class="grid2">
+              <div><label class="lbl" for="fName">Name</label><input id="fName" class="input" autocomplete="name" required></div>
+              <div><label class="lbl" for="fPhone">Phone</label><input id="fPhone" class="input" type="tel" autocomplete="tel" inputmode="tel" required placeholder="(216) 555-0123"></div>
+              <div><label class="lbl" for="fEmail">Email <small>(optional)</small></label><input id="fEmail" class="input" type="email" autocomplete="email"></div>
+              <div><label class="lbl" for="fIg">Instagram <small>(optional)</small></label><input id="fIg" class="input" autocomplete="off" placeholder="@yourhandle"></div>
+            </div>
+            <label class="lbl" for="fNotes">Anything Chris should know? <small>(optional)</small></label>
+            <textarea id="fNotes" class="input" rows="3" placeholder="Removing old tint, want to match my other car, etc."></textarea>
+            <input type="text" name="website" id="fWebsite" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <label class="check"><input type="checkbox" id="fAgree"><span id="agreeText">I understand the $25 deposit is non-refundable and holds my spot.</span></label>
+          </form>
+        </div>
+
+        <!-- done -->
+        <div class="pane done" data-pane="4" hidden>
+          <div class="check-anim"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27 l7 7 l15 -16"/></svg></div>
+          <h3 id="doneTitle">You're booked.</h3>
+          <p class="done-when" id="doneWhen"></p>
+          <div class="deposit-box" id="depositBox"></div>
+          <div class="done-actions">
+            <a class="btn btn-red" id="textChris" href="#">Text Chris your booking</a>
+            <a class="btn btn-ghost" id="addCal" href="#">Add to my calendar</a>
+          </div>
+          <p class="hint">Confirmation number <b id="doneRef"></b></p>
+        </div>
+
+        <p class="wiz-err" id="wizErr" role="alert"></p>
+        <div class="wiz-nav" id="wizNav">
+          <button class="btn btn-ghost" id="wizBack" hidden>Back</button>
+          <button class="btn btn-red btn-lg" id="wizNext" disabled>Next <span class="arrow">→</span></button>
+        </div>
+      </div>
+
+      <aside class="wiz-summary" id="wizSummary">
+        <p class="kicker">Your booking</p>
+        <ul id="sumList"><li class="muted">Nothing picked yet</li></ul>
+        <div class="sum-row"><span>Time in the bay</span><b id="sumDur">–</b></div>
+        <div class="sum-row"><span>When</span><b id="sumWhen">–</b></div>
+        <div class="sum-row dep"><span>Deposit to hold it</span><b>$<span data-biz="deposit">25</span></b></div>
+        <p class="sum-note">Final price is quoted by Chris based on your vehicle and film.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section class="section visit" id="visit">
+    <div class="visit-grid">
+      <div class="reveal">
+        <p class="kicker">05 / Visit</p>
+        <h2>Come through.</h2>
+        <div id="locations" class="locations"></div>
+        <div class="contact-rows">
+          <a href="tel:+12166120141" data-biz-href="tel"><span>Call or text</span><b data-biz="phone">(216) 612-0141</b></a>
+          <a href="https://www.instagram.com/christintedme/" target="_blank" rel="noopener" data-biz-href="ig"><span>Instagram</span><b data-biz="ig">@christintedme</b></a>
+        </div>
+      </div>
+      <div class="hours reveal">
+        <p class="kicker">Hours</p>
+        <ul id="hoursList"></ul>
+        <p class="hint">Need a different time? Text Chris. Same-day spots open up often.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span class="logo-mark sm">C<i>/</i>LUX</span>
+  <span>© <span id="year">2026</span> C-Lux Customs · <span data-biz="city">Cleveland, OH</span></span>
+  <a href="https://twenty47marketing.com" target="_blank" rel="noopener">Website by Twenty47 Marketing</a>
+</footer>
+
+<a href="#book" class="mobile-book" id="mobileBook">Book now <span class="arrow">→</span></a>
+
+<script src="demo/demo.js" type="module"></script>
+<script src="site.js" type="module"></script>
+</body>
+</html>
