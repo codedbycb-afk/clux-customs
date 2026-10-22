@@ -156,7 +156,7 @@ async function renderToday(v) {
       <button class="stat ${due.length ? "alert" : ""}" id="dueStat"><b>${due.length}</b><span>Deposits due</span></button>
       <div class="stat"><b>${live.length}</b><span>Next 7 days</span></div>
     </div>
-    ${!calOk ? `<button class="banner" id="calBanner"><span class="ic">!</span><span><b>Connect Apple Calendar</b><span>So every booking shows up on your iPhone automatically.</span></span></button>` : ""}
+    ${!calOk ? `<button class="banner" id="calBanner"><span class="ic">!</span><span><b>Connect Apple Calendar</b><span>Two-way sync: bookings land on your iPhone, and changes you make there come back here.</span></span></button>` : ""}
     ${apple.connected && apple.lastError ? `<button class="banner" id="calBanner"><span class="ic">!</span><span><b>Calendar sync problem</b><span>${esc(apple.lastError)}</span></span></button>` : ""}
     ${next ? `<button class="next" data-bk="${next.id}"><span class="k">${next.start_ms <= Date.now() ? "In the bay now" : "Up next"}</span><h3>${esc(next.name)}</h3><p>${esc(svcNames(next))} · ${localDate(next.start_ms) === t ? tm(next.start_ms) : dshort(localDate(next.start_ms)) + ", " + tm(next.start_ms)}</p></button>` : ""}
     <h2>Today</h2>
@@ -262,7 +262,7 @@ const ICON = {
 
 function openBooking(b) {
   const ph = digits(b.phone);
-  const syncTxt = { ok: ['ok', "On your Apple Calendar"], pending: ['warn', "Sending to Apple Calendar…"], error: ['bad', "Calendar sync failed: " + (b.cal_error || "")], none: ['', "Apple Calendar not connected"] }[b.cal_sync] ?? ['', ""];
+  const syncTxt = { ok: ['ok', "On your Apple Calendar (move or delete it there and it updates here)"], pending: ['warn', "Sending to Apple Calendar…"], error: ['bad', "Calendar sync failed: " + (b.cal_error || "")], none: ['', "Apple Calendar not connected"] }[b.cal_sync] ?? ['', ""];
   const first = b.name.split(" ")[0];
   const when = `${dlong(b.start_ms)}, ${tm(b.start_ms)}`;
   const depText = encodeURIComponent(`Hey ${first}, it's ${ME.business.owner} from ${ME.business.name}. You're booked for ${svcNames(b)} on ${when}. ${ME.business.depositAmount ? `To lock it in, send the $${ME.business.depositAmount} deposit${ME.business.depositMethods.length ? " to " + ME.business.depositMethods.map(m => `${m.label} ${m.value}`).join(" or ") : ""} with ${b.ref} in the note.` : ""}`);
@@ -398,7 +398,7 @@ function renderSettings(v) {
   const a = ME.apple;
   const calLine = !a.connected ? '<span class="dot bad"></span>Not connected'
     : !a.bookingCal ? '<span class="dot warn"></span>Pick a calendar'
-    : a.lastError ? `<span class="dot bad"></span>${esc(a.lastError)}` : `<span class="dot ok"></span>Syncing to “${esc(a.bookingCal.name)}”`;
+    : a.lastError ? `<span class="dot bad"></span>${esc(a.lastError)}` : `<span class="dot ok"></span>Two-way sync with “${esc(a.bookingCal.name)}”`;
   const openDays = ME.hours.weekly.filter(w => w.length).length;
   v.innerHTML = `<h1>Settings</h1>
     <h2>Calendar</h2>
@@ -528,7 +528,7 @@ async function openApple() {
   const a = ME.apple;
   const feed = ME.feedUrl.replace(/^https?:/, "webcal:");
   if (!a.connected) {
-    sheet(`${head("Connect Apple Calendar", "Bookings land on your iPhone the second they're made, and anything on your calendar blocks those times on the site.")}
+    sheet(`${head("Connect Apple Calendar", "Two-way sync. New bookings land on your iPhone the second they're made. Drag one to a new time or delete it in Calendar and it changes here too. Anything else on your calendar blocks those times on the site.")}
       <ol class="steps">
         <li>Open <b>account.apple.com</b> and sign in.</li>
         <li>Go to <b>Sign-In and Security → App-Specific Passwords</b>.</li>
@@ -573,7 +573,8 @@ function pickCalendars(cals) {
     <button class="btn sm block" id="mk" style="margin:4px 0 6px">+ Make a “${esc(ME.business.name)} Bookings” calendar</button>
     <label class="f" style="margin-top:18px">Block open times when these are busy</label>
     ${cals.map(c => `<label class="cal-opt"><input type="checkbox" name="busy" value="${esc(c.url)}" ${busySet.has(c.url) ? "checked" : ""}><span class="swatch" style="background:${esc(c.color || "#888")}"></span>${esc(c.name)}</label>`).join("")}
-    <p class="note">Turn off calendars that shouldn't stop people booking (holidays, birthdays, shared family stuff).</p>
+    <p class="note">Turn off calendars that shouldn't stop people booking (holidays, birthdays, shared family stuff). The bookings calendar always blocks.</p>
+    <p class="note">${a.lastPullAt ? `Checked your calendar for changes ${esc(tm(a.lastPullAt))}. ` : ""}Moves and deletes you make in Apple Calendar show up here within 2 minutes.</p>
     <button class="btn red block" id="cSave" style="margin-top:12px">Save</button>
     <div class="actions"><button class="btn" id="cSync">Sync now</button><button class="btn danger" id="cOff">Disconnect</button></div>`, s => {
     $("#mk", s).onclick = e => busy(e.currentTarget, async () => {
