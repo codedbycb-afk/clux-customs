@@ -172,3 +172,15 @@ label.f { display: block; font-size: 13px; font-weight: 700; margin: 14px 0 6px;
 .toast { position: fixed; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; z-index: 80; padding: 12px 18px; border-radius: 14px; background: var(--text); color: var(--black); font-weight: 700; font-size: 14px; transition: .3s var(--ease); max-width: calc(100% - 32px); text-align: center; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 .toast.bad { background: #ff6b70; color: #fff; }
+
+/* website changes */
+.rev { padding: 14px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line); margin-bottom: 10px; }
+.rev-top { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+.rev p { margin: 10px 0 0; white-space: pre-wrap; }
+.rev .rev-result { color: var(--muted); font-size: 14px; }
+.rev .btn { margin-top: 12px; }
+.rev-photos { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.rev-photos:empty { display: none; }
+.rev-photos img { width: 64px; height: 64px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); }
+.rev-add { margin-top: 10px; cursor: pointer; }
+#revText { resize: vertical; min-height: 96px; }

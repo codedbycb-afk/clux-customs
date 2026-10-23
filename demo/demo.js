@@ -317,6 +317,16 @@ function route(method, url, body) {
     save();
     return { business: business() };
   }
+  if (method === "GET" && a === "/revisions") return { revisions: (st.revisions ?? []).slice().reverse() };
+  if (method === "POST" && a === "/revisions") {
+    const text = String(body.text ?? "").trim();
+    if (text.length < 3) throw new HttpError(400, "Tell us what to change");
+    st.revisions = st.revisions ?? [];
+    const r = { id: st.revisions.length + 1, text, photos: 0, status: "needs_review", commit_sha: null, created_at: Date.now(), finished_at: Date.now(),
+      result: "Preview only. On the live app, this change goes live on the site in a few minutes." };
+    st.revisions.push(r); save();
+    return [201, { revision: r }];
+  }
   if (method === "POST" && a === "/passcode") throw new HttpError(400, "The preview passcode stays 2477. Chris sets his own on the live app.");
 
   if (method === "POST" && a === "/calendar/connect") {

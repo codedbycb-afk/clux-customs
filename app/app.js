@@ -409,6 +409,8 @@ function renderSettings(v) {
       <button class="set-item" id="sRules"><div><b>Booking rules</b><span>${Math.round(ME.rules.minNoticeMin / 60)}h notice · ${ME.rules.bufferMin} min between jobs · ${ME.rules.maxDaysOut} days out</span></div></button>
       <button class="set-item" id="sSvc"><div><b>Services</b><span>${ME.services.filter(s => s.online).length} bookable online</span></div></button>
     </div>
+    <h2>Website</h2>
+    <div class="set"><button class="set-item" id="sRev"><div><b>Website changes</b><span>Tell us what to change. It goes live on its own.</span></div></button></div>
     <h2>Shop</h2>
     <div class="set">
       <button class="set-item" id="sShop"><div><b>Shop info &amp; deposit</b><span>${ME.business.locations.length ? esc(ME.business.locations[0].address) : "Add your shop address"}</span></div></button>
@@ -420,6 +422,7 @@ function renderSettings(v) {
   $("#sApple").onclick = openApple; $("#sHours").onclick = openHours; $("#sRules").onclick = openRules;
   $("#sSvc").onclick = openServices; $("#sShop").onclick = openShop; $("#sPass").onclick = openPass;
   $("#sSite").onclick = () => window.open("../", "_blank");
+  $("#sRev").onclick = openRevisions;
   $("#sOut").onclick = async () => { await api("/logout", { method: "POST" }); showLogin(); };
 }
 async function reloadMe() { ME = await api("/me"); }
@@ -521,6 +524,95 @@ function openPass() {
       closeSheet(); toast("Passcode changed");
     });
   });
+}
+
+// ---------- website changes ----------
+const REV = {
+  queued: ["pending", "Waiting"], working: ["pending", "Working on it"], done: ["confirmed", "Live"],
+  needs_review: ["", "Not changed"], failed: ["cancelled", "Didn't go through"], cancelled: ["", "Cancelled"],
+  undo_requested: ["pending", "Undoing"], undone: ["", "Undone"],
+};
+let revTimer;
+
+/** Shrink a photo to 1600px JPEG before upload (phone photos are 4–12 MB). */
+function shrinkPhoto(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const k = Math.min(1, 1600 / Math.max(img.width, img.height));
+      const c = document.createElement("canvas");
+      c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(img.src);
+      resolve(c.toDataURL("image/jpeg", 0.85));
+    };
+    img.onerror = () => reject(new Error("Couldn't read that photo"));
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+async function openRevisions() {
+  clearTimeout(revTimer);
+  const { revisions } = await api("/revisions");
+  if ($("#sheetWrap").hidden === false && !$("#revForm")) return; // another sheet opened meanwhile
+  const draft = $("#revText")?.value ?? "";
+  const row = r => {
+    const [cls, label] = REV[r.status] ?? ["", r.status];
+    const when = new Date(r.finished_at || r.created_at).toLocaleDateString("en-US", { timeZone: tz(), month: "short", day: "numeric" });
+    return `<div class="rev">
+      <div class="rev-top"><span class="chip ${cls}">${label}</span><span class="muted">${when}</span></div>
+      <p>${esc(r.text)}</p>
+      ${r.photos ? `<div class="rev-photos">${Array.from({ length: r.photos }, (_, i) => `<img src="/api/app/revisions/${r.id}/photo/${i + 1}" alt="" loading="lazy">`).join("")}</div>` : ""}
+      ${r.result ? `<p class="rev-result">${esc(r.result)}</p>` : ""}
+      ${r.status === "queued" ? `<button class="btn sm" data-rev-cancel="${r.id}">Cancel</button>` : ""}
+      ${r.status === "done" && r.commit_sha ? `<button class="btn sm" data-rev-undo="${r.id}">Undo this change</button>` : ""}
+    </div>`;
+  };
+  sheet(`${head("Website changes", "Say what you want changed on the site, in your own words. It's done for you and goes live in a few minutes. Every change can be undone.")}
+    <form id="revForm">
+      <textarea class="input" id="revText" rows="4" maxlength="2000" placeholder="e.g. Add these two photos of the black Charger to the gallery. Change the top line to say “Cleveland's cleanest tint.”">${esc(draft)}</textarea>
+      <label class="btn sm block rev-add"><input type="file" id="revPics" accept="image/*" multiple hidden>+ Add photos (up to 6)</label>
+      <div class="rev-photos" id="revPrev"></div>
+      <button class="btn red block" id="revGo" type="submit">Send change</button>
+      <p class="note">Hours, services, address and deposit are in Settings and change instantly there.</p>
+    </form>
+    <h2>Your changes</h2>
+    ${revisions.length ? revisions.map(row).join("") : `<div class="empty">Nothing yet.</div>`}`, s => {
+    let pics = [];
+    $("#revPics", s).onchange = async e => {
+      try {
+        const add = await Promise.all([...e.target.files].slice(0, 6 - pics.length).map(shrinkPhoto));
+        pics = [...pics, ...add].slice(0, 6);
+        $("#revPrev", s).innerHTML = pics.map(d => `<img src="${d}" alt="">`).join("");
+      } catch (err) { toast(err.message, true); }
+      e.target.value = "";
+    };
+    $("#revForm", s).onsubmit = e => {
+      e.preventDefault();
+      busy($("#revGo", s), async () => {
+        const text = $("#revText", s).value.trim();
+        if (text.length < 3) throw new Error("Tell us what to change");
+        await api("/revisions", { method: "POST", body: { text, photos: pics } });
+        $("#revText", s).value = "";
+        toast("Sent. It'll be live in a few minutes.");
+        openRevisions();
+      });
+    };
+    $$("[data-rev-cancel]", s).forEach(b => (b.onclick = () => busy(b, async () => { await api(`/revisions/${b.dataset.revCancel}`, { method: "DELETE" }); openRevisions(); })));
+    $$("[data-rev-undo]", s).forEach(b => (b.onclick = () => {
+      if (!confirm("Undo this change on the site?")) return;
+      busy(b, async () => { await api(`/revisions/${b.dataset.revUndo}/undo`, { method: "POST" }); toast("Undoing…"); openRevisions(); });
+    }));
+  });
+  // Keep the list fresh while something is in progress.
+  if (revisions.some(r => ["queued", "working", "undo_requested"].includes(r.status))) {
+    revTimer = setTimeout(function tick() {
+      if (!$("#revForm")) return;
+      // Don't wipe something he's in the middle of typing or picking.
+      if ($("#revText").value || $("#revPrev").children.length) { revTimer = setTimeout(tick, 8000); return; }
+      openRevisions().catch(() => {});
+    }, 8000);
+  }
 }
 
 // ---------- Apple Calendar ----------
